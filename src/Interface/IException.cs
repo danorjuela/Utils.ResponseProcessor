@@ -29,7 +29,29 @@ namespace Danorjuela.Utils.ResponseProcessor.Interface
     {
     }
 
+    public interface IBadRequestException
+    {
+    }
 
+    public interface IGoneException
+    {
+    }
+
+    public interface IPreconditionFailedException
+    {
+    }
+
+    public interface IUnprocessableEntityException
+    {
+    }
+
+    public interface ITooManyRequestsException
+    {
+    }
+
+    public interface IServiceUnavailableException
+    {
+    }
 
 
 }

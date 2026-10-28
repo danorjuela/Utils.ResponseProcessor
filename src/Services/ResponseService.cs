@@ -17,18 +17,44 @@ namespace Danorjuela.Utils.ResponseProcessor.Services
 
             switch (ex)
             {
+                // Excepciones propias del paquete
                 case INotFoundException:
                     return GenerateReponse(ex, StatusCodes.Status404NotFound, g);
-                case InvalidOperationException:
+                case IBadRequestException:
                     return GenerateReponse(ex, StatusCodes.Status400BadRequest, g);
                 case INoDataException:
                     return GenerateReponse(ex, StatusCodes.Status204NoContent, g);
                 case INotAutorizationException:
                     return GenerateReponse(ex, StatusCodes.Status401Unauthorized, g);
+                case IForbiddenException:
+                    return GenerateReponse(ex, StatusCodes.Status403Forbidden, g);
                 case IConflicException:
                     return GenerateReponse(ex, StatusCodes.Status409Conflict, g);
+                case IGoneException:
+                    return GenerateReponse(ex, StatusCodes.Status410Gone, g);
+                case IPreconditionFailedException:
+                    return GenerateReponse(ex, StatusCodes.Status412PreconditionFailed, g);
                 case IBusinessException:
                     return GenerateReponse(ex, StatusCodes.Status418ImATeapot, g);
+                case IUnprocessableEntityException:
+                    return GenerateReponse(ex, StatusCodes.Status422UnprocessableEntity, g);
+                case ITooManyRequestsException:
+                    return GenerateReponse(ex, StatusCodes.Status429TooManyRequests, g);
+                case IServiceUnavailableException:
+                    return GenerateReponse(ex, StatusCodes.Status503ServiceUnavailable, g);
+
+                // Excepciones estandar de .NET
+                case InvalidOperationException:
+                case ArgumentException:
+                    return GenerateReponse(ex, StatusCodes.Status400BadRequest, g);
+                case UnauthorizedAccessException:
+                    return GenerateReponse(ex, StatusCodes.Status403Forbidden, g);
+                case KeyNotFoundException:
+                    return GenerateReponse(ex, StatusCodes.Status404NotFound, g);
+                case NotImplementedException:
+                    return GenerateReponse(ex, StatusCodes.Status501NotImplemented, g);
+                case TimeoutException:
+                    return GenerateReponse(ex, StatusCodes.Status504GatewayTimeout, g);
                 default:
                     return GenerateReponse(ex, StatusCodes.Status500InternalServerError, g);
             }
@@ -70,7 +96,7 @@ namespace Danorjuela.Utils.ResponseProcessor.Services
         {
             if (code != null)
             {
-                return GenerateReponse(ex, code.Value);
+                return GenerateReponse(ex, code.Value, Guid.NewGuid().ToString());
             }
             else
             {

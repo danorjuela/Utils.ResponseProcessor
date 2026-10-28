@@ -66,13 +66,34 @@ Acontinuacion los estados retornados por cada excepcion
 | Clase   | Codigo Retonado | 
 |-------------------|------------------|
 | NoDataException   | 204 |
-| ForbiddenException | 403 |
-| InvalidOperationException | 400 |
+| BadRequestException | 400 |
 | NotAutorizationException | 401 |
+| ForbiddenException | 403 |
 | NotFoundException | 404 |
 | ConflicException | 409 |
+| GoneException | 410 |
+| PreconditionFailedException | 412 |
 | BusinessException | 418 |
+| UnprocessableEntityException | 422 |
+| TooManyRequestsException | 429 |
+| ServiceUnavailableException | 503 |
 | Otros | 500 |
+
+Todas las excepciones anteriores tienen una version generica (`NotFoundException<T>`) que permite retornar datos en la propiedad `data`.
+
+Tambien se mapean las siguientes excepciones estandar de .NET
+
+| Clase   | Codigo Retonado | 
+|-------------------|------------------|
+| InvalidOperationException | 400 |
+| ArgumentException (y derivadas) | 400 |
+| UnauthorizedAccessException | 403 |
+| KeyNotFoundException | 404 |
+| NotImplementedException | 501 |
+| TimeoutException | 504 |
+
+## Requisitos
+.NET 10 o superior
 
 
 ## Licencia
